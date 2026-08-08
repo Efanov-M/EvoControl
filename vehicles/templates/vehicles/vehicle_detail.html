@@ -1,0 +1,15 @@
+<h2>История операций</h2>
+
+{% for operation in operations %}
+
+<p>
+    {{ operation.created_at }}
+    —
+    {{ operation.get_operation_type_display }}
+</p>
+
+{% empty %}
+
+<p>История пока отсутствует.</p>
+
+{% endfor %}

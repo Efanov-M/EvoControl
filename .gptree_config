@@ -1,0 +1,27 @@
+# GPTree Local Config
+version: 2
+
+# Whether to use .gitignore
+useGitIgnore: true
+# File types to include (e.g., .py,.js)
+includeFileTypes: *
+# File types to exclude when includeFileTypes is '*'
+excludeFileTypes: 
+# Output file name
+outputFile: gptree_output.txt
+# Whether to output the file locally or relative to the project directory
+outputFileLocally: true
+# Whether to copy the output to the clipboard
+copyToClipboard: false
+# Whether to use safe mode (prevent overly large files from being combined)
+safeMode: true
+# Whether to store the files chosen in the config file (--save, -s)
+storeFilesChosen: true
+# Whether to include line numbers in the output (--line-numbers, -n)
+lineNumbers: false
+# Whether to show ignored files in the directory tree
+showIgnoredInTree: false
+# Whether to show only default ignored files in the directory tree while still respecting gitignore
+showDefaultIgnoredInTree: false
+# Previously selected files (when using the -s or --save flag previously)
+previousFiles: operations/tests.py,accounts/migrations/__init__.py,config/__init__.py,parking/tests.py,parking/__init__.py,parking/migrations/__init__.py,accounts/__init__.py,fleet/templates/fleet/fleet_detail.html,operations/migrations/0002_parkinglot_vehicleoperation_parking_lot.py,parking/views.py,parking/migrations/0001_initial.py,fleet/tests.py,fleet/migrations/0001_initial.py,accounts/migrations/0001_initial.py,accounts/admin.py,parking/admin.py,parking/models.py,vehicles/apps.py,fleet/__init__.py,operations/__init__.py,fleet/urls.py,vehicles/forms.py,operations/migrations/0001_initial.py,vehicles/views.py,accounts/models.py,vehicles/tests.py,fleet/templates/fleet/fleet_list.html,fleet/models.py,vehicles/urls.py,accounts/views.py,config/settings.py,fleet/views.py,manage.py,vehicles/migrations/__init__.py,operations/models.py,config/urls.py,parking/urls.py,vehicles/templates/vehicles/vehicle_create.html,vehicles/__init__.py,accounts/tests.py,config/wsgi.py,vehicles/templates/vehicles/vehicle_detail.html,accounts/apps.py,fleet/apps.py,operations/admin.py,operations/apps.py,vehicles/migrations/0001_initial.py,vehicles/templates/vehicles/vehicle_list.html,vehicles/admin.py,.gptree_config,parking/templates/fleet/parking_list.html,fleet/migrations/__init__.py,operations/migrations/__init__.py,operations/views.py,fleet/admin.py,parking/apps.py,vehicles/models.py,config/asgi.py

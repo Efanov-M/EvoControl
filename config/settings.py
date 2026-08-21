@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'fleet',
     'vehicles',
     'operations',
+    'parking',
 ]
 
 MIDDLEWARE = [

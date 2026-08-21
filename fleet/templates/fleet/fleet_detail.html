@@ -2,46 +2,134 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{{ fleet.brand }} {{ fleet.model }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ fleet.brand }} {{ fleet.model }} | EvoControl</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f3f5f7;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #17202a;
+            color: white;
+            padding: 18px 32px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 32px;
+        }
+
+        .card {
+            background: white;
+            padding: 26px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+            margin-bottom: 24px;
+        }
+
+        .plate {
+            background: #e0e7ff;
+            color: #3730a3;
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 7px;
+            font-weight: 700;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        .active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .operation {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>{{ fleet.brand }} {{ fleet.model }}</h1>
+<header class="header">
+    <h1>EvoControl</h1>
+</header>
 
-<p>Госномер: {{ fleet.license_plate }}</p>
-<p>VIN: {{ fleet.vin }}</p>
-<p>Тип: {{ fleet.get_truck_type_display }}</p>
+<main class="container">
 
-{% if fleet.is_active %}
-    <p>Статус: активен</p>
-{% else %}
-    <p>Статус: неактивен</p>
-{% endif %}
+    <a href="/fleet/" class="back">← К парку эвакуаторов</a>
 
-<h2>История операций</h2>
+    <section class="card">
+        <h2>{{ fleet.brand }} {{ fleet.model }}</h2>
 
-{% for operation in operations %}
-    <div>
-        <p>
-            {{ operation.created_at }}
-            —
-            {{ operation.get_operation_type_display }}
-        </p>
+        <p class="plate">{{ fleet.license_plate }}</p>
 
-        <p>Автомобиль: {{ operation.vehicle }}</p>
-        <p>Диспетчер: {{ operation.dispatcher }}</p>
-        <p>Стоянка: {{ operation.parking_lot }}</p>
+        <p>Тип: {{ fleet.get_truck_type_display }}</p>
+        <p>VIN: {{ fleet.vin|default:"Не указан" }}</p>
 
-        {% if operation.comment %}
-            <p>Комментарий: {{ operation.comment }}</p>
+        {% if fleet.is_active %}
+            <span class="status active">Активен</span>
+        {% else %}
+            <span class="status inactive">Неактивен</span>
         {% endif %}
-    </div>
+    </section>
 
-    <hr>
+    <section class="card">
+        <h2>История операций</h2>
 
-{% empty %}
-    <p>Операций с этим эвакуатором пока нет.</p>
-{% endfor %}
+        {% for operation in operations %}
+
+            <div class="operation">
+                <strong>{{ operation.get_operation_type_display }}</strong>
+
+                <p>{{ operation.created_at }}</p>
+                <p>Автомобиль: {{ operation.vehicle }}</p>
+                <p>Диспетчер: {{ operation.dispatcher }}</p>
+                <p>Стоянка: {{ operation.parking_lot }}</p>
+
+                {% if operation.comment %}
+                    <p>Комментарий: {{ operation.comment }}</p>
+                {% endif %}
+            </div>
+
+        {% empty %}
+
+            <p>Операций с этим эвакуатором пока нет.</p>
+
+        {% endfor %}
+    </section>
+
+</main>
 
 </body>
 </html>

@@ -33,7 +33,7 @@ def parking_create(request):
 
         if form.is_valid():
             form.save()
-            return redirect("drivers_list")
+            return redirect("parking_list")
 
     else:
         form = ParkingForm()
@@ -62,7 +62,7 @@ def parking_update(request, pk):
 
     return render(
         request,
-        "vehicles/vehicle_update.html",
+        "parking/parking_update.html",
         {
             "form": form,
         },
@@ -72,7 +72,7 @@ def parking_delete(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
     if request.method == "POST":
         parking.delete()
-        return redirect("parkinglist")
+        return redirect("parking_list")
 
 
     return render(

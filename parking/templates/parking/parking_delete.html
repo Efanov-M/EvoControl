@@ -15,7 +15,7 @@
         </div>
 
         <div class="parking-info">
-            <h3>{{ parking.name }} {{ parking.adress }}</h3>
+            <h3>{{ parking.name }} {{ parking.address }}</h3>
         </div>
 
         <form method="post">
@@ -26,7 +26,7 @@
                     Удалить
                 </button>
 
-                <a href="{% 'parking_detail' vehicle.pk }" class="button button-secondary">
+                <a href="{% url 'parking_detail' parking.pk %}" class="button button-secondary">
                     Отмена
                 </a>
             </div>

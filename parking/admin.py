@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from operations.models import ParkingLot
+from .models import ParkingLot
 
 
 @admin.register(ParkingLot)

@@ -69,7 +69,7 @@ def fleet_delete(request, pk):
     tow_truck = get_object_or_404(TowTruck, pk=pk)
     if request.method == "POST":
         tow_truck.delete()
-        return redirect("vehicle_list")
+        return redirect("fleet_list")
 
 
     return render(

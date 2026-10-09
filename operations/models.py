@@ -4,6 +4,7 @@ from django.db import models
 from fleet.models import TowTruck
 from vehicles.models import Vehicle
 from drivers.models import Drivers
+from parking.models import ParkingLot
 
 
 class OperationType(models.TextChoices):

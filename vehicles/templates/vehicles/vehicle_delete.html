@@ -28,7 +28,7 @@
                     Удалить
                 </button>
 
-                <a href="/vehicles/{{ vehicle.pk }}/" class="button button-secondary">
+                <a href="{% url 'vehicles_detail' vehicle.pk %}" class="button button-secondary">
                     Отмена
                 </a>
             </div>

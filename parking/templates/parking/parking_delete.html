@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Удаление стоянки | EvoControl
+{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+
+        <h2>Удаление стоянки</h2>
+
+        <div class="warning">
+            Это действие нельзя отменить.
+        </div>
+
+        <div class="parking-info">
+            <h3>{{ parking.name }} {{ parking.adress }}</h3>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="actions">
+                <button type="submit" class="button button-danger">
+                    Удалить
+                </button>
+
+                <a href="{% 'parking_detail' vehicle.pk }" class="button button-secondary">
+                    Отмена
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}

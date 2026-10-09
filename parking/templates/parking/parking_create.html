@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Добавление стоянки | EvoControl
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Добавление стоянки</h1>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button class="button" type="submit">
+            Сохранить
+        </button>
+
+        <a class="button" href="{% url 'drivers_list' %}">
+            Отмена
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

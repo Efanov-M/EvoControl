@@ -8,6 +8,5 @@ urlpatterns = [
     path("<int:pk>/", views.vehicle_detail, name="vehicle_detail"),
     path('create/',views.vehicle_create, name="vehicle_create"),
     path("<int:pk>/edit/", views.vehicle_update, name="vehicle_update"),
-    path("<int:pk>/delet/", views.vehicle_delete, name='vehicle_delete')
-
+    path("<int:pk>/delet/", views.vehicle_delete, name='vehicle_delete'),
 ]

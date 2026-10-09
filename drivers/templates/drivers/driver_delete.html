@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Удаление водителя| EvoControl
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Удаление водителя</h1>
+
+    <p>
+        Вы действительно хотите удалить
+        <strong>{{ driver.first_name }} {{ driver.last_name }}</strong>?
+    </p>
+
+    <p>
+        Водительское удостоверение: {{ driver.license_driver }}
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <button class="button danger" type="submit">
+            Удалить
+        </button>
+
+        <a class="button" href="{% url 'driver_detail' driver.pk %}">
+            Отмена
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %} 

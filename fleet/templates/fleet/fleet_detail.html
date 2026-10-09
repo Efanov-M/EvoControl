@@ -1,93 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ fleet.brand }} {{ fleet.model }} | EvoControl</title>
+{% extends "base.html" %}
 
-    <style>
-        * { box-sizing: border-box; }
+{% block title %}
+{{ fleet.brand }} {{ fleet.model }} | EvoControl
+{% endblock %}
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f3f5f7;
-            color: #1f2937;
-        }
+{% block content %}
 
-        .header {
-            background: #17202a;
-            color: white;
-            padding: 18px 32px;
-        }
+    
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 32px;
-        }
-
-        .card {
-            background: white;
-            padding: 26px;
-            border-radius: 14px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 3px 12px rgba(0,0,0,.06);
-            margin-bottom: 24px;
-        }
-
-        .plate {
-            background: #e0e7ff;
-            color: #3730a3;
-            display: inline-block;
-            padding: 6px 11px;
-            border-radius: 7px;
-            font-weight: 700;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 999px;
-            font-weight: 600;
-        }
-
-        .active {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .inactive {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .operation {
-            background: #f8fafc;
-            border-left: 4px solid #2563eb;
-            padding: 16px;
-            border-radius: 8px;
-            margin: 12px 0;
-        }
-
-        .back {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #2563eb;
-            text-decoration: none;
-        }
-    </style>
-</head>
-
-<body>
-
-<header class="header">
-    <h1>EvoControl</h1>
-</header>
-
-<main class="container">
-
-    <a href="/fleet/" class="back">← К парку эвакуаторов</a>
+<div>
+    <a href="{% 'fleet_list' %}" class="back">← К парку эвакуаторов</a>
 
     <section class="card">
         <h2>{{ fleet.brand }} {{ fleet.model }}</h2>
@@ -128,8 +50,8 @@
 
         {% endfor %}
     </section>
+</div>
+{% endblock %}
+    
 
-</main>
 
-</body>
-</html>

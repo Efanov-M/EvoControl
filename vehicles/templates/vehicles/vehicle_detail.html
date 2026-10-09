@@ -1,83 +1,15 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ vehicle.brand }} {{ vehicle.model }} | EvoControl</title>
+{% extends "base.html" %}
 
-    <style>
-        * { box-sizing: border-box; }
+{% block title %}
+{{ vehicle.brand }} {{ vehicle.model }} | EvoControl
+{% endblock %}
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f3f5f7;
-            color: #1f2937;
-        }
+{% block content %}
 
-        .header {
-            background: #17202a;
-            color: white;
-            padding: 18px 32px;
-        }
 
-        .header h1 { margin: 0; }
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 32px;
-        }
 
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 26px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 3px 12px rgba(0,0,0,.06);
-            margin-bottom: 24px;
-        }
-
-        .plate {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #3730a3;
-            padding: 7px 12px;
-            border-radius: 7px;
-            font-weight: 700;
-        }
-
-        .row {
-            padding: 9px 0;
-            border-bottom: 1px solid #eef0f2;
-        }
-
-        .operation {
-            border-left: 4px solid #2563eb;
-            background: #f8fafc;
-            padding: 16px;
-            margin: 12px 0;
-            border-radius: 8px;
-        }
-
-        .back {
-            display: inline-block;
-            color: #2563eb;
-            text-decoration: none;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-<header class="header">
-    <h1>EvoControl</h1>
-</header>
-
-<main class="container">
-
-    <a href="/vehicles/" class="back">← К списку автомобилей</a>
+    <a href="{% url 'vehicle_list' %}" class="back">← К списку автомобилей</a>
 
     <section class="card">
         <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
@@ -86,7 +18,6 @@
 
         <div class="row">Цвет: {{ vehicle.color }}</div>
         <div class="row">Основание изъятия: {{ vehicle.legal_basis }}</div>
-
         <div class="row">
             ДТП:
             {% if vehicle.was_in_accident %}
@@ -96,6 +27,7 @@
             {% endif %}
         </div>
     </section>
+  
 
     <section class="card">
 
@@ -123,8 +55,14 @@
         {% endfor %}
 
     </section>
+    
+        <div>
+                <a href="{% url 'vehicle_update' vehicle.pk  %}" class="edit">-Редактировать автомобиль</a>
+                <a href="{% url 'vehicle_delete' vehicle.pk  %}" class="delete">-Удалить автомобиль</a>
+           
+        </div>
+   
+        
+    
 
-</main>
-
-</body>
-</html>
+{% endblock %}

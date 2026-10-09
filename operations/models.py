@@ -3,24 +3,13 @@ from django.db import models
 
 from fleet.models import TowTruck
 from vehicles.models import Vehicle
+from drivers.models import Drivers
 
 
 class OperationType(models.TextChoices):
     ARRIVAL = "arrival", "Приём"
     TRANSFER = "transfer", "Перемещение"
     RELEASE = "release", "Выдача"
-
-class ParkingLot(models.Model):
-    name = models.CharField("Наименование стоянки", max_length=50)
-    address = models.TextField("Адрес стоянки")
-    is_active = models.BooleanField(
-    "Активна",
-    default=True
-    )
-
-    def __str__(self):
-        return self.name
-
 
 class VehicleOperation(models.Model):
     vehicle = models.ForeignKey(
@@ -69,6 +58,13 @@ class VehicleOperation(models.Model):
         null=True,
         blank=True,
     )
+    driver = models.ForeignKey(
+            Drivers,
+            on_delete=models.PROTECT,
+            related_name= "operations",
+            verbose_name= "Водители"
+        )
+    
 
     def __str__(self):
         return (
@@ -76,6 +72,3 @@ class VehicleOperation(models.Model):
             f"{self.get_operation_type_display()} — "
             f"{self.created_at:%d.%m.%Y %H:%M}"
         )
-
-
-

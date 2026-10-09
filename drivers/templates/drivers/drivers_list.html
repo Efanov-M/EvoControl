@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Водители | EvoControl
+{% endblock %}
+
+{% block content %}
+
+    <div class="actions">
+        <a class="button" href="{% url 'driver_create' %}">
+            Добавить водителя
+        </a>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ФИО водителя</th>
+                    <th>Водительское удостоверение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for driver in drivers %}
+                <tr>
+                    <td>
+                        <a href="{% url 'driver_detail' driver.pk %}">
+                        {{ driver.first_name }} {{ driver.last_name }}
+                        </a>
+                    </td>
+                    <td>{{ driver.license_driver }}</td>
+                    </tr>
+                    {% empty %}
+                        <p>Водители пока не добавлены.</p>
+                    {% endfor %}
+            </tbody>
+        
+        
+    </table>
+  
+</div> 
+
+{% endblock %}   

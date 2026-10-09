@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Редактирование стоянки | EvoControl
+{% endblock %}
+
+{% block content %}
+
+    <div class="card">
+
+        <h2>Редактирование стоянки</h2>
+
+        <p class="description">
+            Измените необходимые данные и сохраните изменения.
+        </p>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <div class="actions">
+
+                <button
+                    type="submit"
+                    class="button button-primary">
+                    Сохранить изменения
+                </button>
+
+                <a
+                    href="{% url 'parking_list' %}"
+                    class="button button-secondary">
+                    Отмена
+                </a>
+
+            </div>
+ 
+        </form>
+
+    </div>
+
+{%endblock%}

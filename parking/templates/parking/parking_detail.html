@@ -1,84 +1,16 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ parking.name }} | EvoControl</title>
+{% extends "base.html" %}
 
-    <style>
-        * { box-sizing: border-box; }
+{% block title %}
+{{ parking.name }} | EvoControl
+{% endblock %}
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f3f5f7;
-            color: #1f2937;
-        }
+{% block content %}    
 
-        .header {
-            background: #17202a;
-            color: white;
-            padding: 18px 32px;
-        }
+{% include "includes/header.html" %}
+{% include "includes/navigation.html" %}
 
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 32px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 26px;
-            border: 1px solid #e5e7eb;
-            box-shadow: 0 3px 12px rgba(0,0,0,.06);
-            margin-bottom: 24px;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 999px;
-            font-weight: 600;
-        }
-
-        .active {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .inactive {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .operation {
-            background: #f8fafc;
-            border-left: 4px solid #2563eb;
-            border-radius: 8px;
-            padding: 16px;
-            margin: 12px 0;
-        }
-
-        .back {
-            color: #2563eb;
-            text-decoration: none;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-<header class="header">
-    <h1>EvoControl</h1>
-</header>
-
-<main class="container">
-
-    <a href="/parking/" class="back">← К списку стоянок</a>
+<div>
+    <a href="{% url 'parkinglist' %}" class="back">← К списку стоянок</a>
 
     <section class="card">
 
@@ -120,8 +52,4 @@
         {% endfor %}
 
     </section>
-
-</main>
-
-</body>
-</html>
+</div>

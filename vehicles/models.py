@@ -1,4 +1,5 @@
 from django.db import models
+from vehicles.validators import validate_license_plate
 
 # Create your models here.
 
@@ -9,7 +10,8 @@ class Vehicle(models.Model):
     license_plate = models.CharField(
     "Госномер",
     max_length=20,
-    unique=True
+    unique=True,
+    validators=[validate_license_plate]
     )
 
     brand = models.CharField("Марка", max_length=50)

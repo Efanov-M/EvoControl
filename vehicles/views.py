@@ -17,7 +17,7 @@ def vehicle_detail(request, pk):
     operations = vehicle.operations.all()
     return render(
         request,
-        "vehicles/vehicle_detail.html",
+        "vehicles/vehicles_detail.html",
         {
         "vehicle": vehicle,
             "operations": operations,
@@ -51,7 +51,7 @@ def vehicle_update(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect("vehicle_detail", pk=vehicle.pk)
+            return redirect("vehicles_detail", pk=vehicle.pk)
 
     else:
 

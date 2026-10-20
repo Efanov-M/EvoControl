@@ -27,7 +27,7 @@ class TowTruck(models.Model):
 )
     model = models.CharField("Модель", max_length=20,blank=True)
 
-    vin = models.CharField(max_length=17,blank=False, null=True, unique=True, validators=[validate_vin])
+    vin = models.CharField(max_length=17,blank=True, null=True, unique=True, validators=[validate_vin])
 
     is_active = models.BooleanField(default=True)
 

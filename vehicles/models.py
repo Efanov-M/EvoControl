@@ -1,5 +1,5 @@
 from django.db import models
-from vehicles.validators import validate_license_plate
+from common.validators_avto import validate_license_plate
 
 # Create your models here.
 
@@ -31,3 +31,4 @@ class Vehicle(models.Model):
             return f"{self.brand} {self.model} ({self.license_plate}) {self.color} {self.legal_basis}ДТП"
 
         return f"{self.brand} {self.model} ({self.license_plate}) {self.color} {self.legal_basis}"
+ 

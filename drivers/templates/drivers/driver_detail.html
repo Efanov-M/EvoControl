@@ -14,6 +14,10 @@
         <strong>Водительское удостоверение:</strong>
         {{ driver.license_driver }}
     </p>
+    <p>
+        <strong>Страна выдачи ВУ:</strong>
+        {{ driver.get_country_display }}
+    </p>
 
     <div class="actions">
 

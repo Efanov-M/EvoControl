@@ -1,5 +1,5 @@
 from django.db import models
-from common.validators_avto import validate_vin
+from common.validators.avto import validate_vin
 
 # Create your models here.
 class TruckType(models.TextChoices):

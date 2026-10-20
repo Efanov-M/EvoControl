@@ -15,15 +15,16 @@ class VehicleAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "license_driver",
+        "country",
         
     )
 
     search_fields = (
         "first_name",
         "license_driver",
+        "country",
     )
 
     list_filter = (
-        "license_driver",
-        "first_name",
+        "country",
     )

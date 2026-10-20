@@ -18,6 +18,7 @@
                 <tr>
                     <th>ФИО водителя</th>
                     <th>Водительское удостоверение</th>
+                    <th>Страна выдачи ВУ</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,10 +26,11 @@
                 <tr>
                     <td>
                         <a href="{% url 'driver_detail' driver.pk %}">
-                        {{ driver.first_name }} {{ driver.last_name }}
+                        {{ driver.first_name }} {{ driver.last_name }} 
                         </a>
                     </td>
                     <td>{{ driver.license_driver }}</td>
+                    <td> {{ driver.get_country_display }}</td>
                     </tr>
                     {% empty %}
                         <p>Водители пока не добавлены.</p>

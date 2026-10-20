@@ -1,5 +1,5 @@
 from django.db import models
-from common.validators_avto import validate_license_plate
+from common.validators.avto import validate_license_plate
 
 # Create your models here.
 

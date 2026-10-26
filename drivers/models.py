@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from common.validators.drivers import validate_person_name,validate_russia,validate_kazakhstan,validate_uzbekistan,validate_tajikistan,validate_armenia
 
 
@@ -32,18 +33,21 @@ class Drivers(models.Model):
 
    
     def clean(self):
+        
         validators = {
-        DriverLicenseCountry.RUSSIA: validate_russia,
-        DriverLicenseCountry.KAZAKHSTAN: validate_kazakhstan,
-        DriverLicenseCountry.UZBEKISTAN: validate_uzbekistan,
-        DriverLicenseCountry.TAJIKISTAN: validate_tajikistan,
-        DriverLicenseCountry.ARMENIA: validate_armenia,
+            DriverLicenseCountry.RUSSIA: validate_russia,
+            DriverLicenseCountry.KAZAKHSTAN: validate_kazakhstan,
         }
 
         validator = validators.get(self.country)
 
         if validator:
-            validator(self.license_driver)
+            try:
+                validator(self.license_driver)
+            except ValidationError as error:
+                raise ValidationError({
+                "license_driver": error
+                }) from error
 
 
 

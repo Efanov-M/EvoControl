@@ -14,11 +14,12 @@
 
     <div>
         <table>
+            <caption class="name-table">Список водителей</caption>
             <thead>
                 <tr>
-                    <th>ФИО водителя</th>
-                    <th>Водительское удостоверение</th>
-                    <th>Страна выдачи ВУ</th>
+                    <th scope="col">ФИО водителя</th>
+                    <th scope="col">Водительское удостоверение</th>
+                    <th scope="col">Страна выдачи ВУ</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,13 +34,13 @@
                     <td> {{ driver.get_country_display }}</td>
                     </tr>
                     {% empty %}
-                        <p>Водители пока не добавлены.</p>
+                    <tr>
+                        <td colspan="3">Водители пока не добавлены.</td>
+                    </tr>
                     {% endfor %}
             </tbody>
-        
-        
-    </table>
+        </table>
   
-</div> 
+    </div> 
 
 {% endblock %}   

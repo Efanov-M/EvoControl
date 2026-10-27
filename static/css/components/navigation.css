@@ -1,0 +1,26 @@
+.nav_list{
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+.nav_item{
+    list-style: none;
+    
+    
+}
+.nav_link {
+    color: azure;
+    font-family: "Times New Roman", Georgia, Serif;
+    font-size: medium;
+    margin: 12px;
+    padding: 15px;
+    border: 2px slategray solid;
+    border-radius: 10%;
+    background-color: black;
+    display: inline-block;
+    text-decoration: none;       
+    }
+
+    

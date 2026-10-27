@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/vehicles.css' %}">
+{% endblock %}
 
 {% block title %}
 Автомобили | EvoControl
@@ -9,8 +14,8 @@
     <div class="container">
 
         <div class="topbar">
-            <div>
-                <h2>Автомобили</h2>
+            <div class="top_topbar">
+                <h2 >Автомобили</h2>
                 <p>Автомобили, зарегистрированные в системе</p>
             </div>
 
@@ -63,6 +68,8 @@
                 </div>
 
             {% endfor %}
+               
+                    
 
         </section>
 

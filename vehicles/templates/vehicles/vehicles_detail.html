@@ -8,10 +8,16 @@
 
 
 
+    <div class="actions">
 
-    <a href="{% url 'vehicle_list' %}" class="back">← К списку автомобилей</a>
+        <a class="button" href="{% url 'vehicle_list' %}" class="back">← К списку автомобилей</a>
+        <a class="button" href="{% url 'vehicle_update' vehicle.pk  %}" class="edit">-Редактировать автомобиль</a>
+        <a class="button danger" href="{% url 'vehicle_delete' vehicle.pk  %}" class="delete">-Удалить автомобиль</a>
+        
+    </div>
+    
 
-    <section class="card">
+    <section class="details_card">
         <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
 
         <p class="plate">{{ vehicle.license_plate }}</p>
@@ -29,7 +35,7 @@
     </section>
   
 
-    <section class="card">
+    <section class="details_card">
 
         <h2>История операций</h2>
 
@@ -56,11 +62,6 @@
 
     </section>
     
-        <div>
-                <a href="{% url 'vehicle_update' vehicle.pk  %}" class="edit">-Редактировать автомобиль</a>
-                <a href="{% url 'vehicle_delete' vehicle.pk  %}" class="delete">-Удалить автомобиль</a>
-           
-        </div>
    
         
     

@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="card">
+<div class="details_card">
 
     <h1>{{ driver.first_name }} {{ driver.last_name }}</h1>
 
@@ -43,7 +43,7 @@
     <h2>Операции водителя</h2>
 
     {% for operation in operations %}
-        <div class="card">
+        <div class="details_card">
             {{ operation }}
         </div>
     {% endfor %}

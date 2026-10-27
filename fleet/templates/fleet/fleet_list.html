@@ -15,16 +15,16 @@
              <h2>Парк эвакуаторов</h2>
             <p>Техника службы эвакуации</p>
         </div>
-        <a href="{% url 'vehicle_create' %}" class="button">
+        <a href="{% url 'fleet_create' %}" class="button">
             + Добавить эвакуатор
         </a>
     </div>
 
-    <section  class="fleet-grid">
+    <section  class="grid">
 
         {% for tow_truck in fleet %}
 
-            <article class="card">
+            <article class="details_card">
 
                 <div class="truck-header">
 
@@ -73,10 +73,7 @@
 
                 </div>
 
-                <a
-                    class="details-link"
-                    href="{{ tow_truck.pk }}/"
-                >
+                <a class="button" href="{{ tow_truck.pk }}/">
                     Открыть карточку
                 </a>
 

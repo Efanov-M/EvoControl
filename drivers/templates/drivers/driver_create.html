@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="card">
+<div class="details_card">
 
     <h1>Добавление водителя</h1>
 
@@ -16,15 +16,15 @@
         {% csrf_token %}
 
         {{ form.as_p }}
+        <div class="actions">
+            <button class="button" type="submit">
+                Сохранить
+            </button>
 
-        <button class="button" type="submit">
-            Сохранить
-        </button>
-
-        <a class="button" href="{% url 'drivers_list' %}">
-            Отмена
-        </a>
-
+            <a class="button" href="{% url 'drivers_list' %}">
+                Отмена
+            </a>
+        </div>
     </form>
 
 </div>

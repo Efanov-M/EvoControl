@@ -6,13 +6,19 @@
 
 {% block content %}
 
-    <div class="actions">
+<div class="container">
+    
+    <div class="topbar">
+        <div class="top_topbar">
+             <h2>Водители</h2>
+            <p>Водители службы эвакуации</p>
+        </div>
         <a class="button" href="{% url 'driver_create' %}">
             Добавить водителя
         </a>
     </div>
 
-    <div>
+    <section  class="table_grid">
         <table>
             <caption class="name-table">Список водителей</caption>
             <thead>
@@ -41,6 +47,6 @@
             </tbody>
         </table>
   
-    </div> 
-
+    </section>
+</div>
 {% endblock %}   

@@ -9,7 +9,14 @@
     
 
 <div>
-    <a href="{% url 'fleet_list' %}" class="back">← К парку эвакуаторов</a>
+    
+    <div class="actions">
+
+        <a class="button back" href="{% url 'fleet_list' %}">← К парку эвакуаторов</a>
+        <a class="button edit" href="{% url 'fleet_update' fleet.pk  %}" >-Редактировать эвакуатор</a>
+        <a class="button danger" href="{% url 'fleet_delete' fleet.pk  %}" >-Удалить эвакуатор</a>
+        
+    </div>
 
     <section class="details_card">
         <h2>{{ fleet.brand }} {{ fleet.model }}</h2>

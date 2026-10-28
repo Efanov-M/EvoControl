@@ -6,13 +6,15 @@
 
 {% block content %}
 
-
-
-    <div>
+    <div class="topbar">
+        <div class="top_topbar">
             <h2>Спецстоянки</h2>
             <p>Стоянки службы эвакуации</p>
+        </div>
+        <a href="{% url 'parking_create' %}" class="button">
+            + Добавить стоянку
+        </a>
     </div>
-    
 
     <section class="grid">
 

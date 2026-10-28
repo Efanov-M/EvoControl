@@ -1,12 +1,9 @@
+{% extends "base.html" %}
 {% block title %}
 Добавление эвакуатора | EvoControl
 {% endblock %}
 
 {% block content %}
-
-
-
-
 
 <div class="details_card">
 
@@ -24,12 +21,12 @@
 
         <div class="actions">
 
-            <button type="submit" class="button primary">
+            <button type="submit" class="button-primary">
             Сохранить
             </button>
 
-            <a href="{% url 'fleet_list' %}" class="button secondary">
-            Отмена
+            <a href="{% url 'fleet_list' %}" class="button button-secondary">
+            Отмена 
             </a>
 
         </div>

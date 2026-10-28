@@ -6,13 +6,19 @@
 
 {% block content %}    
 
-{% include "includes/header.html" %}
-{% include "includes/navigation.html" %}
+
 
 <div>
-    <a href="{% url 'parking_list' %}" class="back">← К списку стоянок</a>
+    <div class="actions">
 
-    <section class="card">
+        <a  class="button back" href="{% url 'parking_list' %}" >← К списку стоянок</a>
+        <a class="button" href="{% url 'parking_update' parking.pk  %}" class="edit">-Редактировать стоянку</a>
+        <a class="button danger" href="{% url 'parking_delete' parking.pk  %}" class="delete">-Удалить стоянку</a>
+        
+    </div>
+    
+
+    <section class="details_card">
 
         <h2>{{ parking.name }}</h2>
 
@@ -53,3 +59,4 @@
 
     </section>
 </div>
+{% endblock %}

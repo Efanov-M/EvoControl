@@ -1,17 +1,26 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Vehicle
 from .forms import VehicleForm
+from .models import Vehicle
 
 
 def vehicle_list(request):
     vehicles = Vehicle.objects.all()
-
+    search = request.GET.get("search", "").strip()
+    if search:
+        vehicles = vehicles.filter(brand__icontains=search)
+    allowed_sorts = ("brand", "-brand", "license_plate")
+    sort = request.GET.get("sort")
+    if sort not in allowed_sorts:
+        sort = "brand"
+    vehicles = vehicles.order_by(sort)
     return render(
         request,
         "vehicles/vehicle_list.html",
-        {"vehicles": vehicles},
+        {"vehicles": vehicles, "sort": sort, "search": search},
     )
+
+
 def vehicle_detail(request, pk):
     vehicle = get_object_or_404(Vehicle, pk=pk)
     operations = vehicle.operations.all()
@@ -19,10 +28,11 @@ def vehicle_detail(request, pk):
         request,
         "vehicles/vehicles_detail.html",
         {
-        "vehicle": vehicle,
+            "vehicle": vehicle,
             "operations": operations,
         },
     )
+
 
 def vehicle_create(request):
     if request.method == "POST":
@@ -54,7 +64,6 @@ def vehicle_update(request, pk):
             return redirect("vehicles_detail", pk=vehicle.pk)
 
     else:
-
         form = VehicleForm(instance=vehicle)
 
     return render(
@@ -65,12 +74,12 @@ def vehicle_update(request, pk):
         },
     )
 
+
 def vehicle_delete(request, pk):
     vehicle = get_object_or_404(Vehicle, pk=pk)
     if request.method == "POST":
         vehicle.delete()
         return redirect("vehicle_list")
-
 
     return render(
         request,

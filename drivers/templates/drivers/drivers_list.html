@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/drivers.css' %}">
+{% endblock %}
 
 {% block title %}
 Водители | EvoControl
@@ -21,7 +26,7 @@
     <section  class="table_grid">
         <table>
             <caption class="name-table">Список водителей</caption>
-            <thead>
+            <thead> 
                 <tr>
                     <th scope="col">ФИО водителя</th>
                     <th scope="col">Водительское удостоверение</th>

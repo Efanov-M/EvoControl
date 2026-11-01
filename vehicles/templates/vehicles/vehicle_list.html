@@ -1,78 +1,83 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends "base.html" %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/vehicles.css' %}" />
+{% endblock %} {% block title %} Автомобили | EvoControl {% endblock %} {% block
+content %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/pages/vehicles.css' %}">
-{% endblock %}
-
-{% block title %}
-Автомобили | EvoControl
-{% endblock %}
-
-{% block content %}
-
-    <div class="container">
-
-        <div class="topbar">
-            <div class="top_topbar">
-                <h2 >Автомобили</h2>
-                <p>Автомобили, зарегистрированные в системе</p>
-            </div>
-
-            <a href="{% url 'vehicle_create' %}" class="button">
-                + Добавить автомобиль
-            </a>
-        </div>
-
-        <section class="grid">
-
-            {% for vehicle in vehicles %}
-
-                <article class="card">
-
-                    <h3>
-                        {{ vehicle.brand }} {{ vehicle.model }}
-                    </h3>
-
-                    <div class="plate">
-                        {{ vehicle.license_plate }}
-                    </div>
-
-                    <div class="info">
-                        <div>
-                            Цвет: {{ vehicle.color }}
-                        </div>
-
-                        <div>
-                            Основание: {{ vehicle.legal_basis }}
-                        </div>
-
-                        {% if vehicle.was_in_accident %}
-                            <div>Статус: ДТП</div>
-                        {% else %}
-                            <div>Статус: без ДТП</div>
-                        {% endif %}
-                    </div>
-
-                    <a href="{% url 'vehicles_detail' vehicle.pk %}"
-                       class="details">
-                        Открыть карточку
-                    </a>
-
-                </article>
-
-            {% empty %}
-
-                <div class="empty">
-                    Автомобилей пока нет.
-                </div>
-
-            {% endfor %}
-               
-                    
-
-        </section>
-
+<div class="container">
+  <div class="topbar">
+    <div class="top_topbar">
+      <h2>Автомобили</h2>
+      <p>Автомобили, зарегистрированные в системе</p>
     </div>
+
+    <a href="{% url 'vehicle_create' %}" class="button">
+      + Добавить автомобиль
+    </a>
+  </div>
+
+  <form class="top_get" method="get">
+    <div>
+      <select name="sort">
+        <option value="brand" {% if sort="" ="brand" %} selected {% endif %}>
+          По марке (А–Я)
+        </option>
+        <option value="-brand" {% if sort="" ="-brand" %} selected {% endif %}>
+          По марке (Я–А)
+        </option>
+        <option
+          value="license_plate"
+          {%
+          if
+          sort=""
+          ="license_plate"
+          %}
+          selected
+          {%
+          endif
+          %}
+        >
+          По госномеру
+        </option>
+      </select>
+      <button type="submit" class="button">Сортировать</button>
+    </div>
+    <div>
+      <input type="text" name="search" value="{{search }}" />
+      <button type="submit" class="button">Поиск</button>
+    </div>
+  </form>
+
+  <section class="grid">
+    {% for vehicle in vehicles %}
+
+    <article class="card">
+      <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
+
+      <div class="plate">{{ vehicle.license_plate }}</div>
+
+      <div class="info">
+        <div>Цвет: {{ vehicle.color }}</div>
+
+        <div>Основание: {{ vehicle.legal_basis }}</div>
+
+        {% if vehicle.was_in_accident %}
+        <div>Статус: ДТП</div>
+        {% else %}
+        <div>Статус: без ДТП</div>
+        {% endif %}
+      </div>
+
+      <a href="{% url 'vehicles_detail' vehicle.pk %}" class="details">
+        Открыть карточку
+      </a>
+    </article>
+
+    {% empty %}
+
+    <div class="empty">Автомобилей пока нет.</div>
+
+    {% endfor %}
+  </section>
+</div>
 
 {% endblock %}

@@ -15,4 +15,6 @@ class VehicleForm(ModelForm):
                     'placeholder': 'Например, А123ВС77'
                 }
             )
+
         }
+ 

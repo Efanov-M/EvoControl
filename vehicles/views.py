@@ -1,3 +1,5 @@
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import VehicleForm
@@ -8,16 +10,29 @@ def vehicle_list(request):
     vehicles = Vehicle.objects.all()
     search = request.GET.get("search", "").strip()
     if search:
-        vehicles = vehicles.filter(brand__icontains=search)
+        vehicles = vehicles.filter(
+            Q(brand__icontains=search)
+            | Q(model__icontains=search)
+            | Q(license_plate__icontains=search)
+        )
     allowed_sorts = ("brand", "-brand", "license_plate")
     sort = request.GET.get("sort")
     if sort not in allowed_sorts:
         sort = "brand"
     vehicles = vehicles.order_by(sort)
+    paginator = Paginator(vehicles, 5)
+    page_number = request.GET.get("page")
+
+    page = paginator.get_page(page_number)
+
     return render(
         request,
         "vehicles/vehicle_list.html",
-        {"vehicles": vehicles, "sort": sort, "search": search},
+        {
+            "vehicles": page,
+            "sort": sort,
+            "search": search,
+        },
     )
 
 

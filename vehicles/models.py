@@ -1,17 +1,13 @@
 from django.db import models
+
 from common.validators.avto import validate_license_plate
 
 # Create your models here.
 
 
-
-
 class Vehicle(models.Model):
     license_plate = models.CharField(
-    "Госномер",
-    max_length=20,
-    unique=True,
-    validators=[validate_license_plate]
+        "Госномер", max_length=20, unique=True, validators=[validate_license_plate]
     )
 
     brand = models.CharField("Марка", max_length=50)
@@ -24,11 +20,8 @@ class Vehicle(models.Model):
 
     was_in_accident = models.BooleanField("Была ли в ДТП", default=False)
 
-
-
     def __str__(self):
         if self.was_in_accident:
             return f"{self.brand} {self.model} ({self.license_plate}) {self.color} {self.legal_basis}ДТП"
 
         return f"{self.brand} {self.model} ({self.license_plate}) {self.color} {self.legal_basis}"
- 

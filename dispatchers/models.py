@@ -31,3 +31,6 @@ class Dispatchers(models.Model):
         related_name="dispatcher_profile",
         verbose_name="Учётная запись",
     )
+
+    def __str__(self):
+        return f"{self.first_name} — {self.last_name} — {self.employee_number}: {self.place_work}: "

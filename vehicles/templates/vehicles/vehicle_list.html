@@ -51,13 +51,13 @@
     <div class="pagination">
       <span class="step-links">
         {% if vehicles.has_previous %}
-          <a href="?page=1">« first</a>
-          <a href="?page={{ vehicles.previous_page_number }}">previous</a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page=1">« first</a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ vehicles.previous_page_number }}">previous</a>
         {% endif %}
         <span class="current">Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}.</span>
         {% if vehicles.has_next %}
-          <a href="?page={{ vehicles.next_page_number }}">next</a>
-          <a href="?page={{ vehicles.paginator.num_pages }}">last »</a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ vehicles.next_page_number }}">next</a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ vehicles.paginator.num_pages }}">last »</a>
         {% endif %}
       </span>
     </div>

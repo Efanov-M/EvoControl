@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "operations",
     "parking",
     "drivers",
+    "dispatchers",
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
-
 import re
+
 from django.core.exceptions import ValidationError
+
 
 def validate_person_name(value):
     for char in value:
@@ -12,7 +13,6 @@ def validate_person_name(value):
             )
 
 
-        
 def validate_license_format(value, pattern, country):
     if not re.fullmatch(pattern, value):
         raise ValidationError(
@@ -24,36 +24,26 @@ def validate_license_format(value, pattern, country):
 
 def validate_russia(value):
     # 10 цифр
-    validate_license_format(
-        value, r"[0-9]{10}", "Россия"
-    )
+    validate_license_format(value, r"[0-9]{10}", "Россия")
 
 
 def validate_kazakhstan(value):
     # Временная упрощённая проверка:
     # от 1 до 20 латинских букв или цифр
-    validate_license_format(
-        value, r"[A-Z0-9]{1,20}", "Казахстан"
-    )
+    validate_license_format(value, r"[A-Z0-9]{1,20}", "Казахстан")
 
 
 def validate_uzbekistan(value):
     # 2 латинские буквы + 6 цифр
-    validate_license_format(
-        value, r"[A-Z]{2}[0-9]{6}", "Узбекистан"
-    )
+    validate_license_format(value, r"[A-Z]{2}[0-9]{6}", "Узбекистан")
 
 
 def validate_tajikistan(value):
     # 2 латинские буквы + 7 цифр
-    validate_license_format(
-        value, r"[A-Z]{2}[0-9]{7}", "Таджикистан"
-    )
+    validate_license_format(value, r"[A-Z]{2}[0-9]{7}", "Таджикистан")
 
 
 def validate_armenia(value):
     # Предварительное учебное правило:
     # 2 латинские буквы + 6 цифр
-    validate_license_format(
-        value, r"[A-Z]{2}[0-9]{6}", "Армения"
-    )
+    validate_license_format(value, r"[A-Z]{2}[0-9]{6}", "Армения")

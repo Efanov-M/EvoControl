@@ -1,5 +1,7 @@
 from django.db import models
+
 from common.validators.avto import validate_vin
+
 
 # Create your models here.
 class TruckType(models.TextChoices):
@@ -8,26 +10,21 @@ class TruckType(models.TextChoices):
 
 
 class TowTruck(models.Model):
-    license_plate = models.CharField(
-    "Госномер",
-    max_length=20,
-    unique=True
-    )
+    license_plate = models.CharField("Госномер", max_length=20, unique=True)
 
-    brand = models.CharField(
-    "Марка",
-    max_length=50
-    )
+    brand = models.CharField("Марка", max_length=50)
 
     truck_type = models.CharField(
-    "Тип эвакуатора",
-    max_length=20,
-    choices=TruckType.choices,
-    default=TruckType.PLATFORM
-)
-    model = models.CharField("Модель", max_length=20,blank=True)
+        "Тип эвакуатора",
+        max_length=20,
+        choices=TruckType.choices,
+        default=TruckType.PLATFORM,
+    )
+    model = models.CharField("Модель", max_length=20, blank=True)
 
-    vin = models.CharField(max_length=17,blank=True, null=True, unique=True, validators=[validate_vin])
+    vin = models.CharField(
+        max_length=17, blank=True, null=True, unique=True, validators=[validate_vin]
+    )
 
     is_active = models.BooleanField(default=True)
 
@@ -36,6 +33,3 @@ class TowTruck(models.Model):
             return f"{self.brand} {self.model} ({self.license_plate})"
 
         return f"{self.brand} ({self.license_plate})"
-
-
-

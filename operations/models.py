@@ -1,32 +1,50 @@
 from django.conf import settings
 from django.db import models
 
-from fleet.models import TowTruck
-from vehicles.models import Vehicle
 from drivers.models import Drivers
+from fleet.models import TowTruck
 from parking.models import ParkingLot
+from vehicles.models import Vehicle
 
 
 class OperationType(models.TextChoices):
+    EVACUATION = "evacuation", "Эвакуация"
     ARRIVAL = "arrival", "Приём"
     TRANSFER = "transfer", "Перемещение"
     RELEASE = "release", "Выдача"
 
-class VehicleOperation(models.Model):
+
+class CaseStatus(models.TextChoices):
+    ACTIVE = "active", "Активен"
+    CLOSED = "closed", "Закрыт"
+
+
+class EvacuationCase(models.Model):
     vehicle = models.ForeignKey(
         Vehicle,
         on_delete=models.PROTECT,
-        related_name="operations",
+        related_name="evacuation_cases",
         verbose_name="Автомобиль",
     )
+    status = models.CharField(
+        "Статус", max_length=20, choices=CaseStatus.choices, default=CaseStatus.ACTIVE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
 
+
+class VehicleOperation(models.Model):
     tow_truck = models.ForeignKey(
         TowTruck,
         on_delete=models.PROTECT,
         related_name="operations",
         verbose_name="Эвакуатор",
-        blank=True,
         null=True,
+        blank=True,
+    )
+    evacuation_case = models.ForeignKey(
+        EvacuationCase,
+        on_delete=models.PROTECT,
+        related_name="operations",
     )
 
     dispatcher = models.ForeignKey(
@@ -60,16 +78,15 @@ class VehicleOperation(models.Model):
         blank=True,
     )
     driver = models.ForeignKey(
-            Drivers,
-            on_delete=models.PROTECT,
-            related_name= "operations",
-            verbose_name= "Водители"
-        )
-    
+        Drivers,
+        on_delete=models.PROTECT,
+        related_name="operations",
+        verbose_name="Водители",
+    )
 
     def __str__(self):
         return (
-            f"{self.vehicle} — "
+            f"{self.evacuation_case} — "
             f"{self.get_operation_type_display()} — "
             f"{self.created_at:%d.%m.%Y %H:%M}"
         )

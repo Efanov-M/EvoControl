@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -10,27 +10,21 @@
     <link rel="stylesheet" href="{% static 'css/components/topbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/cards.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/table.css' %}">
-    <link rel="stylesheet" href="{% static 'css/components/details_card.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'css/components/details_card.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/components/forms.css' %}">
     {% block extra_css %}{% endblock %}
     <title>
-        {% block title %}
+      {% block title %}
         EvoControl
-        {% endblock %}
+      {% endblock %}
     </title>
-  
-</head>
-
-<body>
-
+  </head>
+  <body>
     {% include "includes/header.html" %}
-    
-
     <main>
-        {% block content %}
-        {% endblock %}
+      {% block content %}{% endblock %}
     </main>
-
-</body>
+  </body>
 </html>

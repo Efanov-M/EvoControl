@@ -1,7 +1,6 @@
 from django.contrib import admin
+
 from .models import Vehicle
-
-
 
 
 # Register your models here.
@@ -12,15 +11,10 @@ class VehicleAdmin(admin.ModelAdmin):
         "brand",
         "model",
         "color",
-        "was_in_accident",
     )
 
     search_fields = (
         "license_plate",
         "brand",
         "model",
-    )
-
-    list_filter = (
-        "was_in_accident",
     )

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+  Удаление диспетчера | EvoControl
+{% endblock %}
+{% block content %}
+  <div class="details_card">
+    <h2>Удаление диспетчера</h2>
+    <div class="warning">Это действие нельзя отменить.</div>
+    <div class="dispatcher-info">
+      <h3>
+        {{ dispatcher.first_name }}
+        {{ dispatcher.last_name }}
+      </h3>
+      <p>
+        Табельный номер:
+        {{ dispatcher.employee_number }}
+      </p>
+      <p>
+        Место работы:
+        {{ dispatcher.place_work }}
+      </p>
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <button type="submit" class="button danger">Удалить</button>
+        <a href="{% url 'dispatcher_detail' dispatcher.pk %}"
+           class="button button-secondary">Отмена</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

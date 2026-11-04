@@ -1,44 +1,18 @@
 {% extends "base.html" %}
-
 {% block title %}
-Добавить автомобиль | EvoControl
+  Добавить автомобиль | EvoControl
 {% endblock %}
-
 {% block content %}
-
-
-    <div class="details_card">
-
-        <h2>Добавление автомобиля</h2>
-
-        <p class="description">
-            Заполните данные автомобиля.
-        </p>
-
-        <form method="post">
-
-            {% csrf_token %}
-
-            {{ form.as_p }}
-
-            <div class="actions">
-                <button
-                    type="submit"
-                    class="button button-primary"
-                >
-                    Сохранить
-                </button>
-
-                <a
-                    href="{% url 'vehicle_list' %}"
-                    class="button button-secondary"
-                >
-                    Отмена
-                </a>
-            </div>
-
-        </form>
-
-    </div>
-
+  <div class="details_card">
+    <h2>Добавление автомобиля</h2>
+    <p class="description">Заполните данные автомобиля.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button type="submit" class="button button-primary">Сохранить</button>
+        <a href="{% url 'vehicle_list' %}" class="button button-secondary">Отмена</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}

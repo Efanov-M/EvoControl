@@ -4,6 +4,7 @@ from dispatchers.models import Dispatchers
 from drivers.models import Drivers
 from fleet.models import TowTruck
 from parking.models import ParkingLot
+from tasks.models import WorkOrder
 from vehicles.models import Vehicle
 
 
@@ -27,11 +28,39 @@ class EvacuationCase(models.Model):
         verbose_name="Автомобиль",
     )
 
+    work_order = models.OneToOneField(
+        WorkOrder,
+        on_delete=models.PROTECT,
+        related_name="evacuation_case",
+        verbose_name="Наряд-задание",
+        null=True,
+        blank=True,
+    )
+
     status = models.CharField(
-        "Статус",
+        "Статус дела",
         max_length=20,
         choices=CaseStatus.choices,
         default=CaseStatus.ACTIVE,
+    )
+
+    current_parking = models.ForeignKey(
+        ParkingLot,
+        on_delete=models.PROTECT,
+        related_name="current_cases",
+        verbose_name="Текущая стоянка",
+        null=True,
+        blank=True,
+    )
+
+    legal_basis = models.CharField(
+        "Статья изъятия",
+        max_length=20,
+    )
+
+    was_in_accident = models.BooleanField(
+        "Была ли в ДТП",
+        default=False,
     )
 
     created_at = models.DateTimeField(
@@ -41,6 +70,28 @@ class EvacuationCase(models.Model):
 
     def __str__(self):
         return f"Дело №{self.pk} — {self.vehicle} — {self.get_status_display()}"
+
+
+class VehiclePhoto(models.Model):
+    evacuation_case = models.ForeignKey(
+        EvacuationCase,
+        on_delete=models.PROTECT,
+        related_name="photos",
+        verbose_name="Дело эвакуации",
+    )
+
+    image = models.ImageField(
+        "Фотография",
+        upload_to="evacuations/photos/%Y/%m/%d/",
+    )
+
+    created_at = models.DateTimeField(
+        "Дата и время добавления",
+        auto_now_add=True,
+    )
+
+    def __str__(self):
+        return f"Фотография №{self.pk} — дело №{self.evacuation_case_id}"
 
 
 class VehicleOperation(models.Model):
@@ -68,11 +119,7 @@ class VehicleOperation(models.Model):
     )
 
     def __str__(self):
-        return (
-            f"Операция №{self.pk} — "
-            f"{self.get_operation_type_display()} — "
-            f"{self.created_at:%d.%m.%Y %H:%M}"
-        )
+        return f"Операция №{self.pk} — {self.get_operation_type_display()}"
 
 
 class EvacuationOperation(models.Model):
@@ -101,7 +148,7 @@ class EvacuationOperation(models.Model):
         Dispatchers,
         on_delete=models.PROTECT,
         related_name="evacuations",
-        verbose_name="Диспетчер",
+        verbose_name="Ответственный диспетчер",
     )
 
     def __str__(self):

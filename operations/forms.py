@@ -1,4 +1,4 @@
-from django.forms import ModelChoiceField, ModelForm
+from django.forms import CharField, ModelChoiceField, ModelForm
 
 from drivers.models import Drivers
 from fleet.models import TowTruck
@@ -13,6 +13,10 @@ class EvacuationCaseForm(ModelForm):
     )
     tow_truck = ModelChoiceField(
         queryset=TowTruck.objects.all(), label="Эвакуаторы", required=True
+    )
+    comment = CharField(
+        label="Комментарий",
+        required=False,
     )
 
     class Meta:

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Диспетчеры | EvoControl{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="topbar">
+      <div class="top_topbar">
+        <h2>Диспетчеры</h2>
+        <p>Диспетчеры, зарегистрированные в системе</p>
+      </div>
+      <a href="{% url 'dispatcher_create' %}" class="button">+ Добавить диспетчера</a>
+    </div>
+    <form class="top_get" method="get">
+      <div>
+        <select name="sort">
+          <option value="last_name" {% if sort == "last_name" %}selected{% endif %}>По фамилии (А–Я)</option>
+          <option value="-last_name" {% if sort == "-last_name" %}selected{% endif %}>По фамилии (Я–А)</option>
+          <option value="employee_number"
+                  {% if sort == "employee_number" %}selected{% endif %}>По табельному номеру</option>
+        </select>
+        <button type="submit" class="button">Сортировать</button>
+      </div>
+      <div>
+        <input type="text"
+               name="search"
+               value="{{ search }}"
+               placeholder="Имя, фамилия или табельный номер">
+        <button type="submit" class="button">Поиск</button>
+      </div>
+    </form>
+    <section class="grid">
+      {% for dispatcher in dispatchers %}
+        <article class="card">
+          <h3>
+            {{ dispatcher.first_name }}
+            {{ dispatcher.last_name }}
+          </h3>
+          <div class="info">
+            <p>
+              Табельный номер:
+              {{ dispatcher.employee_number }}
+            </p>
+            <p>
+              Место работы:
+              {{ dispatcher.place_work }}
+            </p>
+          </div>
+          <a href="{% url 'dispatcher_detail' dispatcher.pk %}" class="details">Открыть карточку</a>
+        </article>
+      {% empty %}
+        <div class="empty">Диспетчеры пока не добавлены.</div>
+      {% endfor %}
+    </section>
+    <div class="pagination">
+      <span class="step-links">
+        {% if dispatchers.has_previous %}
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page=1">« Первая</a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ dispatchers.previous_page_number }}">
+            Предыдущая
+          </a>
+        {% endif %}
+        <span class="current">
+          Страница {{ dispatchers.number }}
+          из {{ dispatchers.paginator.num_pages }}
+        </span>
+        {% if dispatchers.has_next %}
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ dispatchers.next_page_number }}">
+            Следующая
+          </a>
+          <a href="?search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ dispatchers.paginator.num_pages }}">
+            Последняя »
+          </a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+{% endblock %}

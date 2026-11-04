@@ -1,69 +1,46 @@
 {% extends "base.html" %}
-
 {% block title %}
-{{ vehicle.brand }} {{ vehicle.model }} | EvoControl
+  {{ vehicle.brand }} {{ vehicle.model }} | EvoControl
 {% endblock %}
-
 {% block content %}
-
-
-
-    <div class="actions">
-
-        <a class="button" href="{% url 'vehicle_list' %}" class="back">← К списку автомобилей</a>
-        <a class="button" href="{% url 'vehicle_update' vehicle.pk  %}" class="edit">-Редактировать автомобиль</a>
-        <a class="button danger" href="{% url 'vehicle_delete' vehicle.pk  %}" class="delete">-Удалить автомобиль</a>
-        
+  <div class="actions">
+    <a class="button" href="{% url 'vehicle_list' %}" class="back">← К списку автомобилей</a>
+    <a class="button"
+       href="{% url 'vehicle_update' vehicle.pk %}"
+       class="edit">-Редактировать автомобиль</a>
+    <a class="button danger"
+       href="{% url 'vehicle_delete' vehicle.pk %}"
+       class="delete">-Удалить автомобиль</a>
+  </div>
+  <section class="details_card">
+    <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
+    <p class="plate">{{ vehicle.license_plate }}</p>
+    <div class="row">Цвет: {{ vehicle.color }}</div>
+    <div class="row">Основание изъятия: {{ vehicle.legal_basis }}</div>
+    <div class="row">
+      ДТП:
+      {% if vehicle.was_in_accident %}
+        Да
+      {% else %}
+        Нет
+      {% endif %}
     </div>
-    
-
-    <section class="details_card">
-        <h2>{{ vehicle.brand }} {{ vehicle.model }}</h2>
-
-        <p class="plate">{{ vehicle.license_plate }}</p>
-
-        <div class="row">Цвет: {{ vehicle.color }}</div>
-        <div class="row">Основание изъятия: {{ vehicle.legal_basis }}</div>
-        <div class="row">
-            ДТП:
-            {% if vehicle.was_in_accident %}
-                Да
-            {% else %}
-                Нет
-            {% endif %}
-        </div>
-    </section>
-  
-
-    <section class="details_card">
-
-        <h2>История операций</h2>
-
-        {% for operation in operations %}
-
-            <div class="operation">
-                <strong>{{ operation.get_operation_type_display }}</strong>
-
-                <p>{{ operation.created_at }}</p>
-                <p>Эвакуатор: {{ operation.tow_truck }}</p>
-                <p>Диспетчер: {{ operation.dispatcher }}</p>
-                <p>Стоянка: {{ operation.parking_lot }}</p>
-
-                {% if operation.comment %}
-                    <p>Комментарий: {{ operation.comment }}</p>
-                {% endif %}
-            </div>
-
-        {% empty %}
-
-            <p>История операций пока отсутствует.</p>
-
-        {% endfor %}
-
-    </section>
-    
-   
-        
-    
-
+  </section>
+  <section class="details_card">
+    <h2>История операций</h2>
+    {% for operation in operations %}
+      <div class="operation">
+        <strong>{{ operation.get_operation_type_display }}</strong>
+        <p>{{ operation.created_at }}</p>
+        <p>Эвакуатор: {{ operation.tow_truck }}</p>
+        <p>Диспетчер: {{ operation.dispatcher }}</p>
+        <p>Стоянка: {{ operation.parking_lot }}</p>
+        {% if operation.comment %}
+          <p>Комментарий: {{ operation.comment }}</p>
+        {% endif %}
+      </div>
+    {% empty %}
+      <p>История операций пока отсутствует.</p>
+    {% endfor %}
+  </section>
 {% endblock %}

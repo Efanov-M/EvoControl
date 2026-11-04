@@ -1,39 +1,23 @@
 {% extends "base.html" %}
-
 {% block title %}
-Удаление автомобиля | EvoControl
+  Удаление автомобиля | EvoControl
 {% endblock %}
-
 {% block content %}
-
-    <div class="details_card">
-
-        <h2>Удаление автомобиля</h2>
-
-        <div class="warning">
-            Это действие нельзя отменить.
-        </div>
-
-        <div class="vehicle-info">
-            <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
-            <p>Госномер: {{ vehicle.license_plate }}</p>
-            <p>Цвет: {{ vehicle.color }}</p>
-        </div>
-
-        <form method="post">
-            {% csrf_token %}
-
-            <div class="actions">
-                <button type="submit" class="button button-danger">
-                    Удалить
-                </button>
-
-                <a href="{% url 'vehicles_detail' vehicle.pk %}" class="button button-secondary">
-                    Отмена
-                </a>
-            </div>
-        </form>
-
+  <div class="details_card">
+    <h2>Удаление автомобиля</h2>
+    <div class="warning">Это действие нельзя отменить.</div>
+    <div class="vehicle-info">
+      <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
+      <p>Госномер: {{ vehicle.license_plate }}</p>
+      <p>Цвет: {{ vehicle.color }}</p>
     </div>
-
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <button type="submit" class="button button-danger">Удалить</button>
+        <a href="{% url 'vehicles_detail' vehicle.pk %}"
+           class="button button-secondary">Отмена</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}

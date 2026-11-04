@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}
+  {{ dispatcher.first_name }} {{ dispatcher.last_name }} | EvoControl
+{% endblock %}
+{% block content %}
+  <div class="actions">
+    <a class="button back" href="{% url 'dispatchers_list' %}">← К списку диспетчеров</a>
+    <a class="button edit"
+       href="{% url 'dispatcher_update' dispatcher.pk %}">Редактировать</a>
+    <a class="button danger"
+       href="{% url 'dispatcher_delete' dispatcher.pk %}">Удалить</a>
+  </div>
+  <section class="details_card">
+    <h2>
+      {{ dispatcher.first_name }}
+      {{ dispatcher.last_name }}
+    </h2>
+    <p class="employee_number">
+      <strong>Табельный номер:</strong>
+      {{ dispatcher.employee_number }}
+    </p>
+    <p>
+      <strong>Место работы:</strong>
+      {{ dispatcher.place_work }}
+    </p>
+  </section>
+{% endblock %}

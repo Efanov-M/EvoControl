@@ -1,54 +1,30 @@
 {% extends "base.html" %}
-
 {% block title %}
-{{ driver.first_name }} {{ driver.last_name }} | EvoControl
+  {{ driver.first_name }} {{ driver.last_name }} | EvoControl
 {% endblock %}
-
 {% block content %}
-
-<div class="details_card">
-
+  <div class="details_card">
     <h1>{{ driver.first_name }} {{ driver.last_name }}</h1>
-
     <p>
-        <strong>Водительское удостоверение:</strong>
-        {{ driver.license_driver }}
+      <strong>Водительское удостоверение:</strong>
+      {{ driver.license_driver }}
     </p>
     <p>
-        <strong>Страна выдачи ВУ:</strong>
-        {{ driver.get_country_display }}
+      <strong>Страна выдачи ВУ:</strong>
+      {{ driver.get_country_display }}
     </p>
-
     <div class="actions">
-
-        <a class="button" href="{% url 'driver_update' driver.pk %}">
-            Редактировать
-        </a>
-
-        <a class="button danger" href="{% url 'driver_delete' driver.pk %}">
-            Удалить
-        </a>
-
-        <a class="button" href="{% url 'drivers_list' %}">
-            К списку
-        </a>
-
+      <a class="button" href="{% url 'driver_update' driver.pk %}">Редактировать</a>
+      <a class="button danger" href="{% url 'driver_delete' driver.pk %}">Удалить</a>
+      <a class="button" href="{% url 'drivers_list' %}">К списку</a>
     </div>
-
-</div>
-
-{% if operations %} 
-<div class="operations">
-
-    <h2>Операции водителя</h2>
-
-    {% for operation in operations %}
-        <div class="details_card">
-            {{ operation }}
-        </div>
-    {% endfor %}
-
-</div>
-{% endif %}
-
+  </div>
+  {% if operations %}
+    <div class="operations">
+      <h2>Операции водителя</h2>
+      {% for operation in operations %}
+        <div class="details_card">{{ operation }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
 {% endblock %}

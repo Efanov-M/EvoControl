@@ -11,9 +11,7 @@ class ParkingLotAdmin(admin.ModelAdmin):
         "is_active",
     )
 
-    list_filter = (
-        "is_active",
-    )
+    list_filter = ("is_active",)
 
     search_fields = (
         "name",

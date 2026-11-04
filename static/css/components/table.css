@@ -1,25 +1,25 @@
 .table_grid {
-    font-size: larger;
+  font-size: larger;
 }
 
 .name-table {
-    font-size: 1.5em;
-    font-weight: bold;
+  font-size: 1.5em;
+  font-weight: bold;
 }
-
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left;
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
 }
 
 thead {
-    background-color: #17202a;
-    color: white;
+  background-color: #17202a;
+  color: white;
 }

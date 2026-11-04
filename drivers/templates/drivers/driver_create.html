@@ -1,32 +1,17 @@
-
 {% extends "base.html" %}
-
 {% block title %}
-Добавление водителя | EvoControl
+  Добавление водителя | EvoControl
 {% endblock %}
-
 {% block content %}
-
-<div class="details_card">
-
+  <div class="details_card">
     <h1>Добавление водителя</h1>
-
     <form method="post">
-
-        {% csrf_token %}
-
-        {{ form.as_p }}
-        <div class="actions">
-            <button class="button" type="submit">
-                Сохранить
-            </button>
-
-            <a class="button" href="{% url 'drivers_list' %}">
-                Отмена
-            </a>
-        </div>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button class="button" type="submit">Сохранить</button>
+        <a class="button" href="{% url 'drivers_list' %}">Отмена</a>
+      </div>
     </form>
-
-</div>
-
+  </div>
 {% endblock %}

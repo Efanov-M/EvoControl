@@ -1,42 +1,22 @@
-
 {% extends "base.html" %}
-
 {% block title %}
-Удаление водителя| EvoControl
+  Удаление водителя| EvoControl
 {% endblock %}
-
 {% block content %}
-
-<div class="details_card">
-
+  <div class="details_card">
     <h1>Удаление водителя</h1>
-
     <p>
-        Вы действительно хотите удалить
-        <strong>{{ driver.first_name }} {{ driver.last_name }}</strong>?
+      Вы действительно хотите удалить
+      <strong>{{ driver.first_name }} {{ driver.last_name }}</strong>?
     </p>
-
-    <p>
-        Водительское удостоверение: {{ driver.license_driver }}
-    </p>
-    <p>
-        Страна выдачи ВУ: {{ driver.get_country_display }}
-    </p>
-
+    <p>Водительское удостоверение: {{ driver.license_driver }}</p>
+    <p>Страна выдачи ВУ: {{ driver.get_country_display }}</p>
     <form method="post">
-
-        {% csrf_token %}
-        <div class="actions">
-            <button class="button danger" type="submit">
-                Удалить
-            </button>
-
-            <a class="button" href="{% url 'driver_detail' driver.pk %}">
-                Отмена
-            </a>
-        </div>        
+      {% csrf_token %}
+      <div class="actions">
+        <button class="button danger" type="submit">Удалить</button>
+        <a class="button" href="{% url 'driver_detail' driver.pk %}">Отмена</a>
+      </div>
     </form>
-
-</div>
-
-{% endblock %} 
+  </div>
+{% endblock %}

@@ -1,19 +1,18 @@
 .site_header {
-    background-color: #17202a;
-    padding: 20px;
-    border-bottom: 3px solid #2563eb;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-                    
-    }
+  background-color: #17202a;
+  padding: 20px;
+  border-bottom: 3px solid #2563eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .site_title {
-    color: white;
-    font-family: "Times New Roman", Georgia, Serif;
-    }
+  color: white;
+  font-family: "Times New Roman", Georgia, Serif;
+}
 
 .site_description {
-    color: #aeb6bf;
-    margin-top: 8px;
-                }
+  color: #aeb6bf;
+  margin-top: 8px;
+}

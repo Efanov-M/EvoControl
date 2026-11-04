@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import Drivers
 from .forms import DriversForm
+from .models import Drivers
 
 
 def drivers_list(request):
@@ -21,10 +21,11 @@ def driver_detail(request, pk):
         request,
         "drivers/driver_detail.html",
         {
-        "driver": driver,
-        "operations": operations,
+            "driver": driver,
+            "operations": operations,
         },
     )
+
 
 def driver_create(request):
     if request.method == "POST":
@@ -56,7 +57,6 @@ def driver_update(request, pk):
             return redirect("driver_detail", pk=driver.pk)
 
     else:
-
         form = DriversForm(instance=driver)
 
     return render(
@@ -67,12 +67,12 @@ def driver_update(request, pk):
         },
     )
 
+
 def driver_delete(request, pk):
     driver = get_object_or_404(Drivers, pk=pk)
     if request.method == "POST":
         driver.delete()
         return redirect("drivers_list")
-
 
     return render(
         request,

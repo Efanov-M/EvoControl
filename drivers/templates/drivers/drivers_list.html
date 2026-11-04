@@ -1,57 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/pages/drivers.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages/drivers.css' %}">
 {% endblock %}
-
 {% block title %}
-Водители | EvoControl
+  Водители | EvoControl
 {% endblock %}
-
 {% block content %}
-
-<div class="container">
-    
+  <div class="container">
     <div class="topbar">
-        <div class="top_topbar">
-             <h2>Водители</h2>
-            <p>Водители службы эвакуации</p>
-        </div>
-        <a class="button" href="{% url 'driver_create' %}">
-            Добавить водителя
-        </a>
+      <div class="top_topbar">
+        <h2>Водители</h2>
+        <p>Водители службы эвакуации</p>
+      </div>
+      <a class="button" href="{% url 'driver_create' %}">Добавить водителя</a>
     </div>
-
-    <section  class="table_grid">
-        <table>
-            <caption class="name-table">Список водителей</caption>
-            <thead> 
-                <tr>
-                    <th scope="col">ФИО водителя</th>
-                    <th scope="col">Водительское удостоверение</th>
-                    <th scope="col">Страна выдачи ВУ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for driver in drivers %}
-                <tr>
-                    <td>
-                        <a href="{% url 'driver_detail' driver.pk %}">
-                        {{ driver.first_name }} {{ driver.last_name }} 
-                        </a>
-                    </td>
-                    <td>{{ driver.license_driver }}</td>
-                    <td> {{ driver.get_country_display }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="3">Водители пока не добавлены.</td>
-                    </tr>
-                    {% endfor %}
-            </tbody>
-        </table>
-  
+    <section class="table_grid">
+      <table>
+        <caption class="name-table">Список водителей</caption>
+        <thead>
+          <tr>
+            <th scope="col">ФИО водителя</th>
+            <th scope="col">Водительское удостоверение</th>
+            <th scope="col">Страна выдачи ВУ</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for driver in drivers %}
+            <tr>
+              <td>
+                <a href="{% url 'driver_detail' driver.pk %}">{{ driver.first_name }} {{ driver.last_name }}</a>
+              </td>
+              <td>{{ driver.license_driver }}</td>
+              <td>{{ driver.get_country_display }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="3">Водители пока не добавлены.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </section>
-</div>
-{% endblock %}   
+  </div>
+{% endblock %}

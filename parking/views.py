@@ -1,8 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from .models import ParkingLot
 from .forms import ParkingForm
-
+from .models import ParkingLot
 
 
 def parking_list(request):
@@ -14,6 +13,7 @@ def parking_list(request):
         {"parking": parkings},
     )
 
+
 def parking_detail(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
     operations = parking.operations.all()
@@ -21,7 +21,7 @@ def parking_detail(request, pk):
         request,
         "parking/parking_detail.html",
         {
-        "parking": parking,
+            "parking": parking,
             "operations": operations,
         },
     )
@@ -57,7 +57,6 @@ def parking_update(request, pk):
             return redirect("parking_detail", pk=parking.pk)
 
     else:
-
         form = ParkingForm(instance=parking)
 
     return render(
@@ -68,12 +67,12 @@ def parking_update(request, pk):
         },
     )
 
+
 def parking_delete(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
     if request.method == "POST":
         parking.delete()
         return redirect("parking_list")
-
 
     return render(
         request,

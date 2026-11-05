@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+  Создание наряда | EvoControl
+{% endblock %}
+{% block content %}
+  <div class="details_card">
+    <h2>Создание наряда-задания</h2>
+    <p class="description">Укажите адрес эвакуации и назначьте исполнителей.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="actions">
+        <button type="submit" class="button button-primary">Создать наряд</button>
+        <a href="{% url 'work_order_list' %}" class="button button-secondary">Отмена</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

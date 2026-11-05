@@ -9,6 +9,7 @@ from common.validators.drivers import (
     validate_tajikistan,
     validate_uzbekistan,
 )
+from fleet.models import TowTruck
 
 
 class DriverLicenseCountry(models.TextChoices):
@@ -21,11 +22,15 @@ class DriverLicenseCountry(models.TextChoices):
 
 class Drivers(models.Model):
     first_name = models.CharField(
-        "Имя", max_length=50, validators=[validate_person_name]
+        "Имя",
+        max_length=50,
+        validators=[validate_person_name],
     )
 
     last_name = models.CharField(
-        "Фамилия", max_length=50, validators=[validate_person_name]
+        "Фамилия",
+        max_length=50,
+        validators=[validate_person_name],
     )
 
     license_driver = models.CharField(
@@ -41,8 +46,16 @@ class Drivers(models.Model):
         default=DriverLicenseCountry.RUSSIA,
     )
 
-    def clean(self):
+    tow_truck = models.ForeignKey(
+        TowTruck,
+        on_delete=models.PROTECT,
+        related_name="assigned_drivers",
+        verbose_name="Закреплённый эвакуатор",
+        null=True,
+        blank=True,
+    )
 
+    def clean(self):
         validators = {
             DriverLicenseCountry.RUSSIA: validate_russia,
             DriverLicenseCountry.KAZAKHSTAN: validate_kazakhstan,
@@ -57,4 +70,4 @@ class Drivers(models.Model):
                 raise ValidationError({"license_driver": error}) from error
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} ВО :({self.license_driver}) "
+        return f"{self.first_name} {self.last_name} ВО: ({self.license_driver})"

@@ -13,6 +13,14 @@
       <strong>Страна выдачи ВУ:</strong>
       {{ driver.get_country_display }}
     </p>
+    <p>
+      <strong>Закреплённый эвакуатор:</strong>
+      {% if driver.tow_truck %}
+        <a href="{% url 'fleet_detail' driver.tow_truck.pk %}">{{ driver.tow_truck }}</a>
+      {% else %}
+        Не назначен
+      {% endif %}
+    </p>
     <div class="actions">
       <a class="button" href="{% url 'driver_update' driver.pk %}">Редактировать</a>
       <a class="button danger" href="{% url 'driver_delete' driver.pk %}">Удалить</a>

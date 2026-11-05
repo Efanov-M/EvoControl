@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  Наряды | EvoControl
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="topbar">
+      <div class="top_topbar">
+        <h2>Наряды-задания</h2>
+        <p>Управление заданиями на эвакуацию</p>
+      </div>
+      <a href="{% url 'work_order_create' %}" class="button">+ Создать наряд</a>
+    </div>
+    <!-- Вкладки -->
+    <div class="actions">
+      <a href="{% url 'work_order_list' %}?tab=active"
+         class="button {% if tab == 'active' %}active{% endif %}">Активные</a>
+      <a href="{% url 'work_order_list' %}?tab=archive"
+         class="button {% if tab == 'archive' %}active{% endif %}">Архив</a>
+    </div>
+    <!-- Поиск и сортировка -->
+    <form class="top_get" method="get">
+      <input type="hidden" name="tab" value="{{ tab }}">
+      <div>
+        <select name="sort">
+          <option value="-created_at" {% if sort == "-created_at" %}selected{% endif %}>Сначала новые</option>
+          <option value="created_at" {% if sort == "created_at" %}selected{% endif %}>Сначала старые</option>
+          <option value="status" {% if sort == "status" %}selected{% endif %}>По статусу</option>
+          <option value="driver" {% if sort == "driver" %}selected{% endif %}>По водителю</option>
+        </select>
+        <button type="submit" class="button">Сортировать</button>
+      </div>
+      <div>
+        <input type="text"
+               name="search"
+               value="{{ search }}"
+               placeholder="Адрес или номер наряда">
+        <button type="submit" class="button">Поиск</button>
+      </div>
+    </form>
+    <!-- Список нарядов -->
+    <section class="grid">
+      {% for task in work_orders %}
+        <article class="card">
+          <h3>Наряд №{{ task.pk }}</h3>
+          <p>
+            <strong>Адрес:</strong>
+            {{ task.address }}
+          </p>
+          <p>
+            <strong>Водитель:</strong>
+            {{ task.driver }}
+          </p>
+          <p>
+            <strong>Эвакуатор:</strong>
+            {{ task.tow_truck }}
+          </p>
+          <p>
+            <strong>Диспетчер:</strong>
+            {{ task.dispatcher }}
+          </p>
+          <p>
+            <strong>Создан:</strong>
+            {{ task.created_at|date:"d.m.Y H:i" }}
+          </p>
+          <p>
+            <strong>Статус:</strong>
+            {{ task.get_status_display }}
+          </p>
+          <a href="{% url 'work_order_detail' task.pk %}" class="button">Открыть наряд</a>
+        </article>
+      {% empty %}
+        <div class="empty">
+          {% if tab == "archive" %}
+            Архивных нарядов пока нет.
+          {% else %}
+            Активных нарядов пока нет.
+          {% endif %}
+        </div>
+      {% endfor %}
+    </section>
+    <!-- Пагинация -->
+    <div class="pagination">
+      <span class="step-links">
+        {% if work_orders.has_previous %}
+          <a href="?tab={{ tab|urlencode }}&amp;search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page=1">
+            « Первая
+          </a>
+          <a href="?tab={{ tab|urlencode }}&amp;search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ work_orders.previous_page_number }}">
+            Предыдущая
+          </a>
+        {% endif %}
+        <span class="current">
+          Страница {{ work_orders.number }}
+          из {{ work_orders.paginator.num_pages }}
+        </span>
+        {% if work_orders.has_next %}
+          <a href="?tab={{ tab|urlencode }}&amp;search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ work_orders.next_page_number }}">
+            Следующая
+          </a>
+          <a href="?tab={{ tab|urlencode }}&amp;search={{ search|urlencode }}&amp;sort={{ sort|urlencode }}&amp;page={{ work_orders.paginator.num_pages }}">
+            Последняя »
+          </a>
+        {% endif %}
+      </span>
+    </div>
+  </div>
+{% endblock %}

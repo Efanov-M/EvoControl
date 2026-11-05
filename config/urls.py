@@ -25,4 +25,5 @@ urlpatterns = [
     path("parking/", include("parking.urls")),
     path("drivers/", include("drivers.urls")),
     path("dispatchers/", include("dispatchers.urls")),
+    path("tasks/", include("tasks.urls")),
 ]

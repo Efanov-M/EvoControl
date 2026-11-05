@@ -3,41 +3,56 @@
   {{ parking.name }} | EvoControl
 {% endblock %}
 {% block content %}
-  <div>
-    <div class="actions">
-      <a class="button back" href="{% url 'parking_list' %}">← К списку стоянок</a>
-      <a class="button"
-         href="{% url 'parking_update' parking.pk %}"
-         class="edit">-Редактировать стоянку</a>
-      <a class="button danger"
-         href="{% url 'parking_delete' parking.pk %}"
-         class="delete">-Удалить стоянку</a>
-    </div>
-    <section class="details_card">
-      <h2>{{ parking.name }}</h2>
-      <p>{{ parking.address }}</p>
-      {% if parking.is_active %}
-        <span class="status active">Активна</span>
-      {% else %}
-        <span class="status inactive">Неактивна</span>
-      {% endif %}
-    </section>
-    <section class="card">
-      <h2>Операции на стоянке</h2>
-      {% for operation in operations %}
-        <div class="operation">
-          <strong>{{ operation.get_operation_type_display }}</strong>
-          <p>{{ operation.created_at }}</p>
-          <p>Автомобиль: {{ operation.vehicle }}</p>
-          <p>Эвакуатор: {{ operation.tow_truck }}</p>
-          <p>Диспетчер: {{ operation.dispatcher }}</p>
-          {% if operation.comment %}
-            <p>Комментарий: {{ operation.comment }}</p>
-          {% endif %}
-        </div>
-      {% empty %}
-        <p>Операций на этой стоянке пока нет.</p>
-      {% endfor %}
-    </section>
+  <div class="actions">
+    <a class="button" href="{% url 'parking_list' %}">← К списку стоянок</a>
+    <a class="button" href="{% url 'parking_update' parking.pk %}">Редактировать</a>
+    <a class="button danger" href="{% url 'parking_delete' parking.pk %}">Удалить</a>
   </div>
+  <section class="details_card">
+    <h2>{{ parking.name }}</h2>
+    <p>
+      <strong>Адрес:</strong>
+      {{ parking.address }}
+    </p>
+    {% if parking.is_active %}
+      <span class="status active">Активна</span>
+    {% else %}
+      <span class="status inactive">Неактивна</span>
+    {% endif %}
+  </section>
+  <section class="details_card">
+    <h2>Автомобили на стоянке</h2>
+    {% for case in active_cases %}
+      <div class="operation">
+        <h3>
+          <a href="{% url 'vehicles_detail' case.vehicle.pk %}">
+            {{ case.vehicle.brand }}
+            {{ case.vehicle.model }}
+          </a>
+        </h3>
+        <p>
+          <strong>Госномер:</strong>
+          {{ case.vehicle.license_plate }}
+        </p>
+        <p>
+          <strong>Дело эвакуации:</strong>
+          №{{ case.pk }}
+        </p>
+        <p>
+          <strong>Основание изъятия:</strong>
+          {{ case.legal_basis }}
+        </p>
+        <p>
+          <strong>Статус:</strong>
+          {{ case.get_status_display }}
+        </p>
+        <p>
+          <strong>Дата открытия дела:</strong>
+          {{ case.created_at|date:"d.m.Y H:i" }}
+        </p>
+      </div>
+    {% empty %}
+      <p>Открытых дел эвакуации на этой стоянке пока нет.</p>
+    {% endfor %}
+  </section>
 {% endblock %}

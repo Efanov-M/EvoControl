@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
+from operations.models import CaseStatus
+
 from .forms import ParkingForm
 from .models import ParkingLot
 
@@ -16,13 +18,19 @@ def parking_list(request):
 
 def parking_detail(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
-    operations = parking.operations.all()
+
+    active_cases = (
+        parking.current_cases.filter(status=CaseStatus.ACTIVE)
+        .select_related("vehicle")
+        .order_by("-created_at", "-pk")
+    )
+
     return render(
         request,
         "parking/parking_detail.html",
         {
             "parking": parking,
-            "operations": operations,
+            "active_cases": active_cases,
         },
     )
 
@@ -41,14 +49,13 @@ def parking_create(request):
     return render(
         request,
         "parking/parking_create.html",
-        {
-            "form": form,
-        },
+        {"form": form},
     )
 
 
 def parking_update(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
+
     if request.method == "POST":
         form = ParkingForm(request.POST, instance=parking)
 
@@ -62,14 +69,13 @@ def parking_update(request, pk):
     return render(
         request,
         "parking/parking_update.html",
-        {
-            "form": form,
-        },
+        {"form": form},
     )
 
 
 def parking_delete(request, pk):
     parking = get_object_or_404(ParkingLot, pk=pk)
+
     if request.method == "POST":
         parking.delete()
         return redirect("parking_list")
@@ -77,7 +83,5 @@ def parking_delete(request, pk):
     return render(
         request,
         "parking/parking_delete.html",
-        {
-            "parking": parking,
-        },
+        {"parking": parking},
     )

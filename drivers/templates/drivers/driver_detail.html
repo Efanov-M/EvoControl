@@ -3,8 +3,13 @@
   {{ driver.first_name }} {{ driver.last_name }} | EvoControl
 {% endblock %}
 {% block content %}
-  <div class="details_card">
-    <h1>{{ driver.first_name }} {{ driver.last_name }}</h1>
+  <div class="actions">
+    <a class="button" href="{% url 'drivers_list' %}">← К списку водителей</a>
+    <a class="button" href="{% url 'driver_update' driver.pk %}">Редактировать</a>
+    <a class="button danger" href="{% url 'driver_delete' driver.pk %}">Удалить</a>
+  </div>
+  <section class="details_card">
+    <h2>{{ driver.first_name }} {{ driver.last_name }}</h2>
     <p>
       <strong>Водительское удостоверение:</strong>
       {{ driver.license_driver }}
@@ -21,18 +26,24 @@
         Не назначен
       {% endif %}
     </p>
-    <div class="actions">
-      <a class="button" href="{% url 'driver_update' driver.pk %}">Редактировать</a>
-      <a class="button danger" href="{% url 'driver_delete' driver.pk %}">Удалить</a>
-      <a class="button" href="{% url 'drivers_list' %}">К списку</a>
-    </div>
-  </div>
-  {% if operations %}
-    <div class="operations">
-      <h2>Операции водителя</h2>
-      {% for operation in operations %}
-        <div class="details_card">{{ operation }}</div>
-      {% endfor %}
-    </div>
-  {% endif %}
+  </section>
+  <section class="details_card">
+    <h2>История нарядов</h2>
+    {% for task in work_orders %}
+      <div class="operation">
+        <h3>
+          <a href="{% url 'work_order_detail' task.pk %}">Наряд №{{ task.pk }}</a>
+        </h3>
+        <p><strong>Адрес:</strong> {{ task.address }}</p>
+        <p><strong>Эвакуатор:</strong> {{ task.tow_truck }}</p>
+        <p><strong>Статус:</strong> {{ task.get_status_display }}</p>
+        <p>
+          <strong>Дата создания:</strong>
+          {{ task.created_at|date:"d.m.Y H:i" }}
+        </p>
+      </div>
+    {% empty %}
+      <p>У водителя пока нет нарядов.</p>
+    {% endfor %}
+  </section>
 {% endblock %}

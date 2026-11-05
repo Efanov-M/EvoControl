@@ -1,5 +1,7 @@
+from django import forms
 from django.forms import ModelForm, TextInput
 
+from drivers.models import Drivers
 from fleet.models import TowTruck
 
 
@@ -20,3 +22,20 @@ class TowTruckForm(ModelForm):
                 "(латинские буквы и цифры, кроме I, O и Q)."
             )
         }
+
+
+class TowTruckAssignmentForm(TowTruckForm):
+    assigned_drivers = forms.ModelMultipleChoiceField(
+        queryset=Drivers.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        label="Закреплённые водители",
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if self.instance.pk:
+            self.fields[
+                "assigned_drivers"
+            ].initial = self.instance.assigned_drivers.all()

@@ -94,3 +94,74 @@ WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Т521А�
 
 INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
 SELECT 'У522ВН77', 'Citroen', 'C4', 'Чёрный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'У522ВН77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Х523ЕО77', 'Opel', 'Astra', 'Серебристый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Х523ЕО77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'А524КР77', 'Suzuki', 'Vitara', 'Синий'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'А524КР77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'В525МС77', 'Changan', 'CS55', 'Красный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'В525МС77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Е526НТ77', 'Exeed', 'TXL', 'Серый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Е526НТ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'К527ОУ77', 'Omoda', 'C5', 'Зелёный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'К527ОУ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'М528РХ77', 'Jetour', 'Dashing', 'Белый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'М528РХ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Н529СА77', 'GAC', 'GS8', 'Чёрный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Н529СА77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'О530ТВ77', 'Toyota', 'RAV4', 'Серебристый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'О530ТВ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Р531УЕ77', 'Kia', 'Sportage', 'Синий'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Р531УЕ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'С532ХК77', 'Hyundai', 'Tucson', 'Красный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'С532ХК77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Т533АМ77', 'Volkswagen', 'Tiguan', 'Серый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Т533АМ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'У534ВН77', 'Skoda', 'Kodiaq', 'Зелёный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'У534ВН77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Х535ЕО77', 'Renault', 'Logan', 'Белый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Х535ЕО77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'А536КР77', 'Lada', 'Granta', 'Чёрный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'А536КР77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'В537МС77', 'Nissan', 'X-Trail', 'Серебристый'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'В537МС77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'Е538НТ77', 'Mazda', '6', 'Синий'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'Е538НТ77');
+
+INSERT INTO vehicles_vehicle (license_plate, brand, model, color)
+SELECT 'К539ОУ77', 'Honda', 'CR-V', 'Красный'
+WHERE NOT EXISTS (SELECT 1 FROM vehicles_vehicle WHERE license_plate = 'К539ОУ77');
+
+COMMIT;

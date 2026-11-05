@@ -4,9 +4,8 @@
 {% endblock %}
 {% block content %}
   <div class="actions">
-    <a class="button back" href="{% url 'dispatchers_list' %}">← К списку диспетчеров</a>
-    <a class="button edit"
-       href="{% url 'dispatcher_update' dispatcher.pk %}">Редактировать</a>
+    <a class="button" href="{% url 'dispatchers_list' %}">← К списку диспетчеров</a>
+    <a class="button" href="{% url 'dispatcher_update' dispatcher.pk %}">Редактировать</a>
     <a class="button danger"
        href="{% url 'dispatcher_delete' dispatcher.pk %}">Удалить</a>
   </div>
@@ -15,13 +14,33 @@
       {{ dispatcher.first_name }}
       {{ dispatcher.last_name }}
     </h2>
-    <p class="employee_number">
+    <p>
       <strong>Табельный номер:</strong>
       {{ dispatcher.employee_number }}
     </p>
     <p>
       <strong>Место работы:</strong>
-      {{ dispatcher.place_work }}
+      <a href="{% url 'parking_detail' dispatcher.place_work.pk %}">{{ dispatcher.place_work }}</a>
     </p>
+  </section>
+  <section class="details_card">
+    <h2>История нарядов</h2>
+    {% for task in work_orders %}
+      <div class="operation">
+        <h3>
+          <a href="{% url 'work_order_detail' task.pk %}">Наряд №{{ task.pk }}</a>
+        </h3>
+        <p><strong>Адрес:</strong> {{ task.address }}</p>
+        <p><strong>Водитель:</strong> {{ task.driver }}</p>
+        <p><strong>Эвакуатор:</strong> {{ task.tow_truck }}</p>
+        <p><strong>Статус:</strong> {{ task.get_status_display }}</p>
+        <p>
+          <strong>Дата создания:</strong>
+          {{ task.created_at|date:"d.m.Y H:i" }}
+        </p>
+      </div>
+    {% empty %}
+      <p>У диспетчера пока нет нарядов.</p>
+    {% endfor %}
   </section>
 {% endblock %}

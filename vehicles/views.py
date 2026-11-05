@@ -38,13 +38,13 @@ def vehicle_list(request):
 
 def vehicle_detail(request, pk):
     vehicle = get_object_or_404(Vehicle, pk=pk)
-    operations = vehicle.operations.all()
+    cases = vehicle.evacuation_cases.all()
     return render(
         request,
         "vehicles/vehicles_detail.html",
         {
             "vehicle": vehicle,
-            "operations": operations,
+            "cases": cases,
         },
     )
 

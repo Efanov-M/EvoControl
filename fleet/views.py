@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect, render
 
+from drivers.models import Drivers
+
+from .forms import TowTruckAssignmentForm, TowTruckForm
 from .models import TowTruck
-from .forms import TowTruckForm
 
 
 def fleet_list(request):
@@ -13,17 +16,24 @@ def fleet_list(request):
         {"fleet": tow_trucks},
     )
 
+
 def fleet_detail(request, pk):
     tow_truck = get_object_or_404(TowTruck, pk=pk)
-    operations = tow_truck.operations.all()
+
+    drivers = tow_truck.assigned_drivers.all()
+
+    work_orders = tow_truck.work_orders.all().order_by("-created_at")
+
     return render(
         request,
         "fleet/fleet_detail.html",
         {
-        "fleet": tow_truck,
-        "operations": operations,
+            "fleet": tow_truck,
+            "drivers": drivers,
+            "work_orders": work_orders,
         },
     )
+
 
 def fleet_create(request):
     if request.method == "POST":
@@ -47,16 +57,34 @@ def fleet_create(request):
 
 def fleet_update(request, pk):
     tow_truck = get_object_or_404(TowTruck, pk=pk)
+
     if request.method == "POST":
-        form = TowTruckForm(request.POST, instance=tow_truck)
+        form = TowTruckAssignmentForm(
+            request.POST,
+            instance=tow_truck,
+        )
 
         if form.is_valid():
-            form.save()
-            return redirect("fleet_detail", pk=tow_truck.pk)
+            selected_drivers = form.cleaned_data["assigned_drivers"]
+
+            selected_ids = list(selected_drivers.values_list("pk", flat=True))
+
+            with transaction.atomic():
+                form.save()
+
+                Drivers.objects.filter(tow_truck=tow_truck).exclude(
+                    pk__in=selected_ids
+                ).update(tow_truck=None)
+
+                Drivers.objects.filter(pk__in=selected_ids).update(tow_truck=tow_truck)
+
+            return redirect(
+                "fleet_detail",
+                pk=tow_truck.pk,
+            )
 
     else:
-
-        form = TowTruckForm(instance=tow_truck)
+        form = TowTruckAssignmentForm(instance=tow_truck)
 
     return render(
         request,
@@ -66,12 +94,13 @@ def fleet_update(request, pk):
         },
     )
 
+
 def fleet_delete(request, pk):
     tow_truck = get_object_or_404(TowTruck, pk=pk)
+
     if request.method == "POST":
         tow_truck.delete()
         return redirect("fleet_list")
-
 
     return render(
         request,

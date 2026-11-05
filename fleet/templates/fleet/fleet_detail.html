@@ -1,64 +1,78 @@
 {% extends "base.html" %}
-
 {% block title %}
-{{ fleet.brand }} {{ fleet.model }} | EvoControl
+  {{ fleet.brand }} {{ fleet.model }} | EvoControl
 {% endblock %}
-
 {% block content %}
-
-    
-
-<div>
-    
+  <div>
+    <!-- Кнопки навигации -->
     <div class="actions">
-
-        <a class="button back" href="{% url 'fleet_list' %}">← К парку эвакуаторов</a>
-        <a class="button edit" href="{% url 'fleet_update' fleet.pk  %}" >-Редактировать эвакуатор</a>
-        <a class="button danger" href="{% url 'fleet_delete' fleet.pk  %}" >-Удалить эвакуатор</a>
-        
+      <a class="button back" href="{% url 'fleet_list' %}">← К парку эвакуаторов</a>
+      <a class="button edit" href="{% url 'fleet_update' fleet.pk %}">Редактировать эвакуатор</a>
+      <a class="button danger" href="{% url 'fleet_delete' fleet.pk %}">Удалить эвакуатор</a>
     </div>
-
+    <!-- Информация об эвакуаторе -->
     <section class="details_card">
-        <h2>{{ fleet.brand }} {{ fleet.model }}</h2>
-
-        <p class="plate">{{ fleet.license_plate }}</p>
-
-        <p>Тип: {{ fleet.get_truck_type_display }}</p>
-        <p>VIN: {{ fleet.vin|default:"Не указан" }}</p>
-
-        {% if fleet.is_active %}
-            <span class="status active">Активен</span>
-        {% else %}
-            <span class="status inactive">Неактивен</span>
-        {% endif %}
+      <h2>{{ fleet.brand }} {{ fleet.model }}</h2>
+      <p class="plate">{{ fleet.license_plate }}</p>
+      <p>
+        <strong>Тип:</strong>
+        {{ fleet.get_truck_type_display }}
+      </p>
+      <p>
+        <strong>VIN:</strong>
+        {{ fleet.vin|default:"Не указан" }}
+      </p>
+      {% if fleet.is_active %}
+        <span class="status active">Активен</span>
+      {% else %}
+        <span class="status inactive">Неактивен</span>
+      {% endif %}
     </section>
-
+    <!-- Закреплённые водители -->
     <section class="details_card">
-        <h2>История операций</h2>
-
-        {% for operation in operations %}
-
-            <div class="operation">
-                <strong>{{ operation.get_operation_type_display }}</strong>
-
-                <p>{{ operation.created_at }}</p>
-                <p>Автомобиль: {{ operation.vehicle }}</p>
-                <p>Диспетчер: {{ operation.dispatcher }}</p>
-                <p>Стоянка: {{ operation.parking_lot }}</p>
-
-                {% if operation.comment %}
-                    <p>Комментарий: {{ operation.comment }}</p>
-                {% endif %}
-            </div>
-
-        {% empty %}
-
-            <p>Операций с этим эвакуатором пока нет.</p>
-
-        {% endfor %}
+      <h2>Закреплённые водители</h2>
+      {% for driver in drivers %}
+        <div class="operation">
+          <p>
+            <a href="{% url 'driver_detail' driver.pk %}">{{ driver.first_name }} {{ driver.last_name }}</a>
+          </p>
+          <p>
+            <strong>Водительское удостоверение:</strong>
+            {{ driver.license_driver }}
+          </p>
+        </div>
+      {% empty %}
+        <p>За этим эвакуатором пока нет закреплённых водителей.</p>
+      {% endfor %}
     </section>
-</div>
+    <!-- История нарядов -->
+    <section class="details_card">
+      <h2>История нарядов</h2>
+      {% for task in work_orders %}
+        <div class="operation">
+          <h3>
+            <a href="{% url 'work_order_detail' task.pk %}">Наряд №{{ task.pk }}</a>
+          </h3>
+          <p>
+            <strong>Адрес эвакуации:</strong>
+            {{ task.address }}
+          </p>
+          <p>
+            <strong>Водитель:</strong>
+            {{ task.driver }}
+          </p>
+          <p>
+            <strong>Статус:</strong>
+            {{ task.get_status_display }}
+          </p>
+          <p>
+            <strong>Дата создания:</strong>
+            {{ task.created_at|date:"d.m.Y H:i" }}
+          </p>
+        </div>
+      {% empty %}
+        <p>Этот эвакуатор ещё не участвовал в нарядах.</p>
+      {% endfor %}
+    </section>
+  </div>
 {% endblock %}
-    
-
-

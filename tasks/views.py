@@ -58,8 +58,39 @@ def work_order_create(request):
     )
 
 
-def work_order_detail(): ...
-def work_order_update(): ...
+def work_order_detail(request, pk):
+    task = get_object_or_404(WorkOrder, pk=pk)
+
+    return render(
+        request,
+        "task/work_order_detail.html",
+        {
+            "task": task,
+        },
+    )
+
+
+def work_order_updated(request, pk):
+    task = get_object_or_404(WorkOrder, pk=pk)
+    if request.method == "POST":
+        form = WorkOrderForm(request.POST, instance=task)
+
+        if form.is_valid():
+            form.save()
+            return redirect("work_order_detail", pk=task.pk)
+
+    else:
+        form = WorkOrderForm(instance=task)
+
+    return render(
+        request,
+        "task/work_order_updated.html",
+        {
+            "task": task,
+        },
+    )
+
+
 def work_order_cancel(): ...
 def work_order_start(): ...
 def work_order_complete(): ...
